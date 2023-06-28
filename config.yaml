@@ -1,0 +1,11 @@
+projectName: hisp-training
+image: jembi/platform
+logPath: /tmp/logs
+
+packages:
+    - hisp-training
+    - job-scheduler-ofelia
+
+customPackages:
+    - id: hisp-training
+      path: ../hisp-training

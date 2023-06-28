@@ -1,0 +1,99 @@
+{
+    "Users": [
+      {
+        "provider": "local",
+        "groups": [
+          "admin"
+        ],
+        "firstname": "Super",
+        "surname": "User",
+        "email": "root@openhim.org",
+        "passwordAlgorithm": null,
+        "passwordHash": null,
+        "passwordSalt": null,
+        "expiry": null,
+        "locked": false,
+        "token": null,
+        "tokenType": null
+      }
+    ],
+    "Clients": [
+      {
+        "roles": [
+          "root@openhim.org",
+          "testRole"
+        ],
+        "clientID": "test",
+        "name": "test",
+        "passwordAlgorithm": "sha512",
+        "passwordSalt": "f662e8d89fa1bb1b02a98fa3d6d5b586",
+        "passwordHash": "b3f636a562c9cc1992350c3ef172aa7ff25af7123639eb63de581001dc2486eb5f4a507880207c608de55b3ad8499e32e72ef2ad3bdd0a5ff0b6dd5110b4b9be"
+      }
+    ],
+    "Channels": [
+      {
+        "methods": [
+          "GET",
+          "POST",
+          "DELETE",
+          "PUT",
+          "OPTIONS",
+          "HEAD",
+          "TRACE",
+          "CONNECT",
+          "PATCH"
+        ],
+        "type": "http",
+        "allow": [
+          "root@openhim.org",
+          "testRole"
+        ],
+        "whitelist": [],
+        "authType": "private",
+        "matchContentTypes": [],
+        "properties": [],
+        "txViewAcl": [],
+        "txViewFullAcl": [],
+        "txRerunAcl": [],
+        "status": "enabled",
+        "rewriteUrls": false,
+        "addAutoRewriteRules": true,
+        "autoRetryEnabled": false,
+        "autoRetryPeriodMinutes": 60,
+        "routes": [
+          {
+            "type": "http",
+            "status": "enabled",
+            "forwardAuthHeader": false,
+            "name": "mediator main entry",
+            "secured": false,
+            "host": "hisp-training-mediator",
+            "port": 3001,
+            "path": "/hisp/map/mapping",
+            "pathTransform": "",
+            "primary": true,
+            "username": "",
+            "password": ""
+          }
+        ],
+        "requestBody": true,
+        "responseBody": true,
+        "rewriteUrlsConfig": [],
+        "name": "Hisp",
+        "urlPattern": "^/hisp/.*$",
+        "matchContentRegex": null,
+        "matchContentXpath": null,
+        "matchContentValue": null,
+        "matchContentJson": null,
+        "pollingSchedule": null,
+        "tcpHost": null,
+        "tcpPort": null,
+        "updatedBy": {
+          "id": "645e27ea5f6d6e0013cdcbed",
+          "name": "Super User"
+        },
+        "alerts": []
+      }
+    ],
+    "ContactGroups": []
+  }
