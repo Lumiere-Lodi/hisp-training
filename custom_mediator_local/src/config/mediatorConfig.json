@@ -1,0 +1,39 @@
+{
+    "urn": "urn:mediator:hisp-training-mediator",
+    "version": "1.0.0",
+    "name": "hisp mapping mediator",
+    "description": "mediator that performs the mapping of the user input to the configured output",
+    "defaultChannelConfig": [
+        {
+            "name": "hisp mapping mediator",
+            "urlPattern": "^/hisp/map/mapping",
+            "routes": [
+                {
+                    "name": "mediator main entry",
+                    "host": "hisp-training-mediator",
+                    "port": "3001",
+                    "primary": true,
+                    "type": "http"
+                }
+            ],
+            "allow": [
+                "instant"
+            ],
+            "methods": [
+                "POST"
+            ],
+            "type": "http"
+        }
+    ],
+    "endpoints": [
+        {
+            "name": "mediator main entry",
+            "host": "hisp-training-mediator",
+            "port": "3001",
+            "path": "/hisp/map/mapping",
+            "primary": true,
+            "type": "http"
+        }
+    ],
+    "configDefs": []
+}

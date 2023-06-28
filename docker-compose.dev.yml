@@ -1,0 +1,8 @@
+version: '3.9'
+
+services:
+  hisp-training-mediator:
+    ports:
+      - target: 5001
+        published: 5001
+        mode: host

@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  hisp-training-mediator:
+    image: hisp-training-mediator:latest
+    deploy:
+      restart_policy:
+        condition: none
+    ports:
+      - '3001:3001'
+    environment:
+      - NODE_ENV=development
+    networks:
+      clickhouse:
+      default:
+      openhim:
+      hapi-fhir:
+
+networks:
+  clickhouse:
+    name: clickhouse_public
+    external: true
+  openhim:
+    name: openhim_public
+    external: true
+  hapi-fhir:
+    name: hapi-fhir_public
+    external: true

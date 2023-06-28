@@ -1,0 +1,35 @@
+{
+    "extends": "@tsconfig/recommended/tsconfig.json",
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "allowJs": true,
+      "importHelpers": true,
+      "jsx": "react",
+      "strict": true,
+      "alwaysStrict": true,
+      "sourceMap": false,
+      "forceConsistentCasingInFileNames": true,
+      "noFallthroughCasesInSwitch": true,
+      "noImplicitReturns": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "noImplicitAny": false,
+      "noImplicitThis": false,
+      "strictNullChecks": true,
+      "outDir": "./build",
+      "baseUrl": ".",
+      "paths": {
+        "@server/*": ["src/*"],
+        "@tests/*": ["__tests__/*"],
+        "@config/*": ["src/config/*"]
+      }
+    },
+    "include": ["src/**/*", "__tests__/**/*", "__tests__/mock"],
+    "exclude": ["node_modules", "build"]
+  }
+  

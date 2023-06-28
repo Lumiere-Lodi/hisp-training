@@ -1,0 +1,92 @@
+version: '3'
+
+services:
+  simple-mediator:
+    image: simple-mediator:latest
+    container_name: simple-mediator
+    deploy:
+      restart_policy:
+        condition: none
+    ports:
+      - '3001:3001'
+    environment:
+      - NODE_ENV=development
+      - HOST=0.0.0.0
+      - PORT=3001
+      - OPENHIM_USERNAME=root@openhim.org
+      - OPENHIM_PASSWORD=root
+      - OPENHIM_URL=https://openhim-core:8080
+      - OPENHIM_TRUST_SELF_SIGNED=true
+      - OPENHIM_CLIENT_ID=test
+    networks:
+      - hisp-mapping-network
+    depends_on:
+      - openhim-core
+
+  mongo-db:
+    container_name: mongo-db
+    image: mongo:4.0
+    networks:
+      - hisp-mapping-network
+      - mongo_backup
+    volumes:
+      - "mongo-data:/data/db"
+    restart: unless-stopped
+
+  openhim-core:
+    container_name: openhim-core
+    image: jembi/openhim-core:latest
+    restart: unless-stopped
+    environment:
+      - mongo_url=mongodb://mongo-db/openhim
+      - mongo_atnaUrl=mongodb://mongo-db/openhim
+      - api_authenticationTypes=["token", "basic", "openid", "local"]
+      # Edit the following to enable SSO authentication (openid)
+      # api_openid_url: ${KC_FRONTEND_URL}/realms/${KC_REALM_NAME}
+      # api_openid_callbackUrl: ${KC_OPENHIM_ROOT_URL}
+      # api_openid_clientId: ${KC_OPENHIM_CLIENT_ID}
+      # api_openid_clientSecret: ${KC_OPENHIM_CLIENT_SECRET}
+      - authentication_enableCustomTokenAuthentication=true
+      - authentication_enableJWTAuthentication=true
+      - authentication_jwt_secretOrPublicKey=secret
+      - authentication_jwt_algorithms=HS256
+      - authentication_jwt_issuer=openhim
+    ports:
+      - "8080:8080"
+      - "5000:5000"
+      - "5001:5001"
+    depends_on:
+      - mongo-db
+    networks:
+      - hisp-mapping-network
+    healthcheck:
+     test: "curl -sSk https://openhim-core:8080/heartbeat || exit 1"
+     interval: 30s
+     timeout: 30s
+     retries: 3
+
+  openhim-console:
+    container_name: openhim-console
+    image: jembi/openhim-console:latest
+    restart: unless-stopped
+    networks:
+      - hisp-mapping-network
+    ports:
+      - "9000:80"
+    depends_on:
+      - openhim-core
+    healthcheck:
+     test: "curl -sS http://openhim-console || exit 1"
+     interval: 30s
+     timeout: 30s
+     retries: 3
+networks:
+  hisp-mapping-network:
+    name: hisp-mapping-network
+  mongo_backup:
+    name: mongo_backup
+    driver: overlay
+    attachable: true
+
+volumes:
+  mongo-data:
